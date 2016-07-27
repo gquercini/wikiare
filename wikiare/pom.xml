@@ -3,4 +3,11 @@
   <groupId>fr.centralesupelec.cs.wikiare</groupId>
   <artifactId>wikiare</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.neo4j.driver</groupId>
+  		<artifactId>neo4j-java-driver</artifactId>
+  		<version>1.0.4</version>
+  	</dependency>
+  </dependencies>
 </project>
