@@ -81,6 +81,7 @@ public abstract class Page {
 		this.language = null;
 		this.wikiid = null;
 		this.parents = -1;
+		this.loadAttributes = true;
 	}
 	
 	

@@ -67,12 +67,12 @@ public class Category extends Page {
 					+ "n.size", 
 					Values.parameters("node-identifier", this.nodeIdentifier()));
 			for ( Record record : result.list() ) {
-				title(record.get("n.title").asString());
-				language(record.get("n.lang").asString());
-				wikiid(record.get("n.wikiid").asString());
-				parents(record.get("n.parents").asInt());
-				children(record.get("n.children").asInt());
-				size(record.get("n.size").asInt());
+				super.title(record.get("n.title").asString());
+				super.language(record.get("n.lang").asString());
+				super.wikiid(record.get("n.wikiid").asString());
+				super.parents(record.get("n.parents").asInt());
+				this.children = record.get("n.children").asInt();
+				this.size = record.get("n.size").asInt();
 			}
 			session.close();
 			this.loadAttributes(false);

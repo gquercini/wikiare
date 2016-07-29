@@ -36,7 +36,7 @@ import org.neo4j.driver.v1.types.Node;
  * node in the underlying Neo4j database. 
  *
  */
-class PageFactory {
+public class PageFactory {
 
 	/**
 	 * The driver used to connect to the underlying Neo4j database.
@@ -47,7 +47,7 @@ class PageFactory {
 	 * Creates a new {@code PageFactory}.
 	 * @param driver The driver used to connect to the underlying Neo4j database.
 	 */
-	PageFactory(Driver driver) {
+	public PageFactory(Driver driver) {
 		this.driver = driver;
 	}
 
@@ -57,7 +57,9 @@ class PageFactory {
 	 * @return The article corresponding to a given node in the underlying Neo4j database, or {@code null}
 	 * if the node does not correspond to any article.
 	 */
-	Article createArticle(Node node) {
+	public Article createArticle(Node node) {
+		if (node == null)
+			return null;
 		Article article = null;
 		Session session = driver.session();
 		if ( node.hasLabel("Article") ) {
@@ -79,7 +81,7 @@ class PageFactory {
 	 * @param targetArticleVariable The name of the variable in the query that indicates the target article that is returned by the query.
 	 * @return The set of articles as the result of the query.
 	 */
-	Set<Article> createArticles(String query, Value parameters, String targetArticleVariable) {
+	public Set<Article> createArticles(String query, Value parameters, String targetArticleVariable) {
 		Set<Article> targetArticles = new HashSet<Article>();
 		Session session = driver.session();
 		StatementResult result = parameters != null ? session.run(query, parameters) : session.run(query);
@@ -102,7 +104,7 @@ class PageFactory {
 	 * @param targetCategoryVariable The name of the variable in the query that indicates the target category that is returned by the query.
 	 * @return The set of categories as the result of the query.
 	 */
-	Set<Category> createCategories(String query, Value parameters, String targetCategoryVariable) {
+	public Set<Category> createCategories(String query, Value parameters, String targetCategoryVariable) {
 		Set<Category> targetCategories = new HashSet<Category>();
 		Session session = driver.session();
 		StatementResult result = parameters != null ? session.run(query, parameters) : session.run(query);
@@ -124,7 +126,9 @@ class PageFactory {
 	 * @return The category corresponding to a given node in the underlying Neo4j database, or {@code null}
 	 * if the node does not correspond to any category.
 	 */
-	Category createCategory(Node node) {
+	public Category createCategory(Node node) {
+		if ( node == null )
+			return null;
 		Category category = null;
 		Session session = driver.session();
 		if ( node.hasLabel("Category") ) {

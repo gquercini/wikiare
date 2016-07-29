@@ -21,14 +21,21 @@
 //
 package fr.centralesupelec.cs.wikiare;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
+import org.neo4j.driver.v1.Record;
+import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.StatementResult;
+import org.neo4j.driver.v1.Values;
+import org.neo4j.driver.v1.types.Node;
 
 import fr.centralesupelec.cs.wikiare.wikipedia.Article;
+import fr.centralesupelec.cs.wikiare.wikipedia.PageFactory;
 
 /**
  * The Wikipedia graph. 
@@ -60,7 +67,7 @@ public class Wikipedia {
 	 * @param host The name or IP address of the remote host where the Neo4j database runs.
 	 */
 	public void connect(String host) {
-		this.driver = GraphDatabase.driver( "bolt://" + host, AuthTokens.basic( "neo4j", "neo4j" ) );
+		this.driver = GraphDatabase.driver( "bolt://" + host );
 	}
 	
 	
@@ -79,8 +86,16 @@ public class Wikipedia {
 	 * otherwise.
 	 */
 	public Article getArticle(String title, String language) {
-		//TODO
-		return null;
+		Session session = driver.session();
+		PageFactory factory = new PageFactory(driver);
+		StatementResult result = session.run("MATCH (n:Article) WHERE n.title={title} AND n.lang={lang} "
+				+ "return n as node", Values.parameters("title", title, "lang", language));
+		Record record = result.single();
+		Node node = record.get("node").asNode();
+		System.out.println(node.id());
+		Article article = factory.createArticle(node);
+		session.close();
+		return article;
 	}
 	
 	/**
