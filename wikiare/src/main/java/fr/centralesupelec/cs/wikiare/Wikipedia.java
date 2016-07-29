@@ -28,6 +28,8 @@ import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
 
+import fr.centralesupelec.cs.wikiare.wikipedia.Article;
+
 /**
  * The Wikipedia graph. 
  *
@@ -106,7 +108,7 @@ public class Wikipedia {
 	
 	/**
 	 * Returns all the articles that have a given identifier.
-	 * @param title A title.
+	 * @param identifier A title.
 	 * @return The list of the articles with the given identifier, if any; an empty list otherwise.
 	 */
 	public List<Article> getArticles(long identifier) {

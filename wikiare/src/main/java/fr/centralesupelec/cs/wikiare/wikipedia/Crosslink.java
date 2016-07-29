@@ -19,12 +19,25 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
 //
-package fr.centralesupelec.cs.wikiare;
+package fr.centralesupelec.cs.wikiare.wikipedia;
+
+import org.neo4j.driver.v1.Driver;
 
 /**
- * A Wikipedia article.
+ * A cross-link between two Wikipedia pages belonging to two different Wikipedia
+ * language editions.
  *
  */
-public class Article {
+public class Crosslink extends Link {
+
+	/**
+	 * Creates a new cross-link.
+	 *  @param driver The driver used to connect to the underlying Neo4j database.
+	 * @param source The source page.
+	 * @param target The target page.
+	 */
+	Crosslink(Driver driver, Page source, Page target) {
+		super(driver, source, target);
+	}
 
 }
